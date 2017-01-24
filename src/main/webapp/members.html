@@ -1,0 +1,72 @@
+<div class="tab-content-container">
+  <h3>
+    <button ng-disabled="leftTab !== 0"
+            ng-click="selectInTree();"           
+            class="btn btn-success"
+            style="float: right"
+            type="submit"
+            data-toggle="tooltip"
+            title="Select in tree">
+      <span class="glyphicon glyphicon-duplicate"></span>
+    </button>
+    {{data.details.descriptions[0].concept_term}}
+  </h3>
+  <h4>Members</h4>
+  <span class="spinner" ng-show="spinners.members">
+    <img src="spinner.gif"/>
+  </span>
+  <div ng-show="!data.members.concepts.length && !spinners.members">
+    <p>No member concepts found</p>
+  </div>
+  <div ng-show="data.members.concepts.length">
+    <table class="table table-condensed table-hover">
+      <tr>
+        <th>Concept ID</th>
+        <th>Description</th>
+      </tr>
+      <tr ng-repeat="memberOf in data.members.concepts"
+          ng-click="memberSelect(memberOf);"
+          class="clickable">
+        <td>{{memberOf.id}}</td>
+        <td>{{memberOf.term}}</td>
+      </tr>
+    </table>
+    <uib-pagination
+      total-items="data.members.count"
+      ng-model="data.members.currentPage"
+      ng-change="membersPage()"
+      items-per-page="data.members.pageSize"
+      max-size="data.members.maxSize"
+      class="pagination">
+    </uib-pagination>
+  </div>
+  <h4>Member Of</h4>
+  <span class="spinner" ng-show="spinners.memberOf">
+    <img src="spinner.gif"/>
+  </span>
+  <div ng-show="!data.memberOf.concepts.length && !spinners.memberOf">
+    <p>No reference sets found</p>
+  </div>
+  <div ng-show="data.memberOf.concepts.length">
+    <table class="table table-condensed table-hover">
+      <tr>
+        <th>Refset ID</th>
+        <th>Description</th>
+      </tr>
+      <tr ng-repeat="memberOf in data.memberOf.concepts"
+          ng-click="memberSelect(memberOf);"
+          class="clickable">
+        <td>{{memberOf.id}}</td>
+        <td>{{memberOf.term}}</td>
+      </tr>
+    </table>
+    <uib-pagination
+      total-items="data.memberOf.count"
+      ng-model="data.memberOf.currentPage"
+      ng-change="memberOfPage()"
+      items-per-page="data.memberOf.pageSize"
+      max-size="data.memberOf.maxSize"
+      class="pagination">
+    </uib-pagination>
+  </div>
+</div>

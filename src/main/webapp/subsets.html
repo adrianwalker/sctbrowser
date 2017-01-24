@@ -1,0 +1,12 @@
+<div class="tab-content-container">
+  <table class="table table-condensed table-hover">
+    <tr>
+      <th>Subset ID</th>
+      <th>Description</th>
+    </tr>
+    <tr ng-repeat="subset in data.subsets.concepts" ng-click="subsetSelect(subset);" class="clickable">
+      <td>{{subset.subset_id}}</td>
+      <td>{{subset.subset_term}}</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,3 @@
+CREATE INDEX content_component_refset_active_referenced_component_id
+ON content_component_refset
+USING btree (active, referenced_component_id);

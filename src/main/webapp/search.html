@@ -1,0 +1,47 @@
+<div class="tab-content-container">
+  <div>
+    <form>
+      <div class="input-group">
+        <input ng-model="data.search.terms"
+               type="text"
+               class="form-control"
+               placeholder = "Concept name or ID"/>
+        <span class="input-group-btn">
+          <button ng-click="search();"
+                  class="btn btn-success"
+                  type="submit"
+                  data-toggle="tooltip"
+                  title="Search">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </form>
+  </div>
+  <span class="spinner" ng-show="spinners.search">
+    <img src="spinner.gif"/>
+  </span>
+  <div ng-show="data.search.count && !spinners.search">{{data.search.count}} results</div>
+  <div ng-show="data.search.count > 0 && !spinners.search">
+    <table class="table table-condensed table-hover">
+      <tr>
+        <th>Concept ID</th>
+        <th>Description</th>
+      </tr>
+      <tr ng-repeat="concept in data.search.concepts" 
+          ng-click="searchSelect(concept);" 
+          class="clickable">
+        <td>{{concept.id}}</td>
+        <td>{{concept.term}}</td>
+      </tr>
+    </table>
+    <uib-pagination
+      total-items="data.search.count"
+      ng-model="data.search.currentPage"
+      ng-change="searchPage()"
+      items-per-page="data.search.pageSize"
+      max-size="data.search.maxSize"
+      class="pagination">
+    </uib-pagination>
+  </div>
+</div>

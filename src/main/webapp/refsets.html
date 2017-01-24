@@ -1,0 +1,12 @@
+<div class="tab-content-container">
+  <table class="table table-condensed table-hover">
+    <tr>
+      <th>Refset ID</th>
+      <th>Description</th>
+    </tr>
+    <tr ng-repeat="refset in data.refsets.concepts" ng-click="refsetSelect(refset);" class="clickable">
+      <td>{{refset.id}}</td>
+      <td>{{refset.term}}</td>
+    </tr>
+  </table>
+</div>

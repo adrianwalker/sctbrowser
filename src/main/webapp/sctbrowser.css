@@ -1,0 +1,95 @@
+h3 {
+  margin-top: 10px !important;
+}
+:focus {
+  outline: none !important;
+}
+
+.modal-body {
+  max-height: calc(100vh - 250px);
+  overflow-y: auto;
+}
+
+.not-footer {
+  bottom: 41px !important;
+}
+
+.footer {
+  position: absolute;
+  height: 41px;
+  padding: 10px 15px;
+  border-top: 1px #ddd solid;
+  margin: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+}
+
+.fancytree-container {
+  overflow: visible !important;
+}
+
+.ui-splitbar {
+  background: #ddd !important;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.node-icon {
+  color: #337ab7;
+}
+
+.node-control {
+  color: darkgrey;
+  font-size: x-small;
+}
+
+.tab-content-container {
+  position: relative;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  padding-top: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  overflow: auto;
+}
+
+.content-container {
+  padding-top: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  overflow: auto;
+}
+
+.spinner {
+  display: block;
+  margin: 3px;
+  text-align:center;
+}
+
+span.fancytree-node.fancytree-active {
+  background-color: #f5f5f5 !important;
+}
+
+span.fancytree-node {
+  border: 1px solid transparent !important;
+}
+
+span.fancytree-node:hover {
+  background-color: #f5f5f5 !important;
+}
+
+ul.fancytree-container {
+  font-family: inherit !important;
+  font-size: inherit !important;
+}
+
+ul.fancytree-container {
+  border: none !important;
+}

@@ -1,0 +1,81 @@
+<div class="tab-content-container">
+  <span class="spinner" ng-show="spinners.details">
+    <img src="spinner.gif"/>
+  </span>
+  <div ng-show="!spinners.details">
+    <h3>
+      <button ng-disabled="leftTab !== 0"
+              ng-click="selectInTree();"           
+              class="btn btn-success"
+              style="float: right"
+              type="submit"
+              data-toggle="tooltip"
+              title="Select in tree">
+        <span class="glyphicon glyphicon-duplicate"></span>
+      </button>
+      {{data.details.descriptions[0].concept_term}}
+    </h3>
+    <h4>Properties</h4>
+    <div ng-show="!data.details.properties.length">
+      <p>No properties found</p>
+    </div>
+    <div ng-show="data.details.properties.length">
+      <table class="table table-condensed" ng-repeat="property in data.details.properties">
+        <tr>
+          <th width="20%">Concept ID</th>
+          <td>{{property.concept_id}}</td>
+        </tr>
+        <tr>
+          <th>Module</th>
+          <td ng-click="propertySelect(property);" class="clickable">
+            {{property.module_term}}
+          </td>
+        </tr>
+        <tr>
+          <th>Effective Time</th>
+          <td>{{property.effective_time}}</td>
+        </tr>
+        <tr>
+          <th>Active</th>
+          <td>{{property.active}}</td>
+        </tr>
+      </table>
+    </div>
+    <h4>Descriptions</h4>
+    <div ng-show="!data.details.descriptions.length">
+      <p>No descriptions found</p>
+    </div>
+    <div ng-show="data.details.descriptions.length">
+      <table class="table table-condensed">
+        <tr>
+          <th width="20%">Type</th>
+          <th>Description</th>
+          <th>Acceptability</th>
+        </tr>
+        <tr ng-repeat="description in data.details.descriptions">
+          <td>{{description.type_term}}</td>
+          <td>{{description.concept_term}}</td>
+          <td>{{description.acceptability_term}}</td>
+        </tr>
+      </table>
+    </div>
+    <h4>Relationships</h4>
+    <div ng-show="!data.details.relationships.length">
+      <p>No relationships found</p>
+    </div>
+    <div ng-show="data.details.relationships.length">
+      <table class="table table-condensed table-hover">
+        <tr>
+          <th width="20%">Relationship</th>
+          <th>Concept ID</th>
+          <th>Description</th>
+        </tr>
+        <tr ng-repeat="relationship in data.details.relationships" ng-click="relationshipSelect(relationship);" class="clickable">
+          <td>{{relationship.relationship_term}}</td>
+          <td>{{relationship.concept_id}}</td>
+          <td>{{relationship.concept_term}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

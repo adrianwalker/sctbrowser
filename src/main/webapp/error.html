@@ -1,0 +1,36 @@
+<div id="error-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Error</h3>
+      </div>
+      <div class="modal-body">
+        <div>
+          An unexpected error occurred.  Please report via email, or log a defect in the issue tracker.
+          <br>
+          <br>
+          email:
+          <a href="mailto:contact@sctbrowser.uk">
+            contact@sctbrowser.uk
+          </a>
+          <br>
+          issue tracking:
+          <a href="https://github.com/adrianwalker/sctbrowser/issues">
+            github.com
+          </a>
+          <br>
+          <br>
+          details:-
+          <br>
+          <br>
+          <code>
+            {{$root.error}}
+          </code>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>

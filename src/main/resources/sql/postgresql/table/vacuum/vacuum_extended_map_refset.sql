@@ -1,0 +1,1 @@
+VACUUM ANALYZE extended_map_refset;

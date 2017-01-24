@@ -1,0 +1,1 @@
+VACUUM ANALYZE simple_map_refset;

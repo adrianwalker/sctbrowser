@@ -1,0 +1,1 @@
+ALTER TABLE description ADD COLUMN search_text TSVECTOR;

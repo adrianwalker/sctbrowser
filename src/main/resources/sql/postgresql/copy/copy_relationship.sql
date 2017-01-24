@@ -1,0 +1,2 @@
+COPY relationship (id, effective_time, active, module_id, source_id, destination_id, relationship_group, type_id, characteristic_type_id, modifier_id)
+FROM ? WITH CSV HEADER DELIMITER E'\t' QUOTE E'\b';
