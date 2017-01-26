@@ -45,12 +45,12 @@ sctbrowser is a small, simple and fast, Snomed CT Browser for viewing internatio
 
     C:\temp\data\load
 
-containing the unzipped RF2 directory names, e.g.
+    containing the unzipped RF2 directory names, e.g.
 
     uk_sct2clsnap_22.0.0_20161005000001
     uk_sct2drsnap_22.4.0_20170111000001
 
-The sctbrowser watches for changes in the load file, creates required the PostgreSQL database tables and loads the provided RF2 data.
+    The sctbrowser watches for changes in the load file, creates required the PostgreSQL database tables and loads the provided RF2 data.
 
 12. Monitor the log file for loading to finish:
 
