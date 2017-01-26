@@ -42,10 +42,12 @@ sctbrowser is a small, simple and fast, Snomed CT Browser for viewing internatio
 10. Copy built war file
 
     from:
+        
         C:\Users\adwa1\Desktop\github\sctbrowser\target\sctbrowser.war 
     
     to: 
-        <TOMCAT_HOME>\webapps\sctbrowser.war
+        
+        &lt;TOMCAT_HOME&gt;\webapps\sctbrowser.war
 
 11. Create load file:
 
