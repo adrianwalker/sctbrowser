@@ -43,11 +43,11 @@ sctbrowser is a small, simple and fast, Snomed CT Browser for viewing internatio
 
     from:
         
-        C:\Users\adwa1\Desktop\github\sctbrowser\target\sctbrowser.war 
+        sctbrowser\target\sctbrowser.war 
     
     to: 
         
-        &lt;TOMCAT_HOME&gt;\webapps\sctbrowser.war
+        %TOMCAT_HOME%\webapps\sctbrowser.war
 
 11. Create load file:
 
@@ -70,4 +70,3 @@ sctbrowser is a small, simple and fast, Snomed CT Browser for viewing internatio
 13. Browse to:
 
     http://localhost:8080/sctbrowser
-
