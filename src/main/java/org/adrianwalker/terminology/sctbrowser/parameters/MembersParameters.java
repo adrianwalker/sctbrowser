@@ -3,6 +3,9 @@ package org.adrianwalker.terminology.sctbrowser.parameters;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.PREFERRED;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.ROOT_CONCEPT_ID;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.SYNONYM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.CONCEPT_ID_PARAM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.DESCRIPTION_TYPE_ID_PARAM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.LANGUAGE_REFSET_ACCEPTABILITY_ID_PARAM;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,11 +13,11 @@ import javax.ws.rs.QueryParam;
 
 public final class MembersParameters extends PagedParameters implements Serializable {
 
-  @QueryParam("conceptId")
+  @QueryParam(CONCEPT_ID_PARAM)
   private Long conceptId;
-  @QueryParam("languageRefsetAcceptabilityId")
+  @QueryParam(LANGUAGE_REFSET_ACCEPTABILITY_ID_PARAM)
   private Long languageRefsetAcceptabilityId;
-  @QueryParam("descriptionTypeId")
+  @QueryParam(DESCRIPTION_TYPE_ID_PARAM)
   private Long descriptionTypeId;
 
   public Long getConceptId() {

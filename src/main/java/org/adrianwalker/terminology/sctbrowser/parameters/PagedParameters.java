@@ -3,16 +3,19 @@ package org.adrianwalker.terminology.sctbrowser.parameters;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_COUNT;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_LIMIT;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_OFFSET;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.COUNT_PARAM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.LIMIT_PARAM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.OFFSET_PARAM;
 
 import javax.ws.rs.QueryParam;
 
 public abstract class PagedParameters {
 
-  @QueryParam("offset")
+  @QueryParam(OFFSET_PARAM)
   private Integer offset;
-  @QueryParam("limit")
+  @QueryParam(LIMIT_PARAM)
   private Integer limit;
-  @QueryParam("count")
+  @QueryParam(COUNT_PARAM)
   private Boolean count;
 
   public final Integer getOffset() {

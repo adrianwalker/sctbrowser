@@ -166,7 +166,7 @@ public final class TxtFileLoader implements Loader {
   public void loadSubsetToRefsetMapping(final Path path) throws Exception {
     loader.loadSubsetToRefsetMapping(path);
   }
-  
+
   @Override
   public void createIndexes() throws Exception {
     loader.createIndexes();

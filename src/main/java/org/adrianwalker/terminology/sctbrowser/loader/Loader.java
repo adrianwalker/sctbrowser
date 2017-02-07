@@ -17,9 +17,9 @@ public interface Loader {
   void loadLanguageRefset(Path path) throws Exception;
 
   void loadContentRefset(Path path) throws Exception;
-  
+
   void loadMapRefset(Path path) throws Exception;
-  
+
   void loadSubsetToRefsetMapping(Path path) throws Exception;
 
   void createIndexes() throws Exception;

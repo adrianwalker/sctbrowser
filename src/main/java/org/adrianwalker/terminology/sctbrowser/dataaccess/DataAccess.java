@@ -20,7 +20,7 @@ public interface DataAccess {
   Map<String, Object> searchCount(SearchParameters parameters) throws Exception;
 
   List<Map<String, Object>> refsets(BrowseParameters parameters) throws Exception;
-  
+
   List<Map<String, Object>> subsets(BrowseParameters parameters) throws Exception;
 
   List<Map<String, Object>> mappings(BrowseParameters parameters) throws Exception;

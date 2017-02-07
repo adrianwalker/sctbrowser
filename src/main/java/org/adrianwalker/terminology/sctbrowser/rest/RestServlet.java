@@ -1,5 +1,6 @@
 package org.adrianwalker.terminology.sctbrowser.rest;
 
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.APPLICATION_PATH;
 import static org.adrianwalker.terminology.sctbrowser.sql.SqlDialect.toEnum;
 
 import org.adrianwalker.terminology.sctbrowser.dataaccess.DataAccessFactory;
@@ -21,7 +22,7 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Context;
 
 @WebServlet(loadOnStartup = 1)
-@ApplicationPath("rest")
+@ApplicationPath(APPLICATION_PATH)
 public class RestServlet extends ResourceConfig {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RestServlet.class);

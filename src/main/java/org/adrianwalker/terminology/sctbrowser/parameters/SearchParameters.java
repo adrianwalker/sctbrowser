@@ -1,6 +1,7 @@
 package org.adrianwalker.terminology.sctbrowser.parameters;
 
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.EMPTY_STRING;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.TERMS_PARAM;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,7 +9,7 @@ import javax.ws.rs.QueryParam;
 
 public final class SearchParameters extends PagedParameters implements Serializable {
 
-  @QueryParam("terms")
+  @QueryParam(TERMS_PARAM)
   private String terms;
 
   public String getTerms() {

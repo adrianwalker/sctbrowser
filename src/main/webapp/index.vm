@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="SNOMED CT Browser with UK clinical and UK drug extensions">
+    <meta name="keywords" content="
+          SNOMED CT Concept (SNOMED RT+CTV3),
+          SNOMED CT Concept,
+          &copy; 2002-2016 International Health Terminology Standards Development Organisation (IHTSDO). All rights reserved. SNOMED CT&reg;, was originally created by The College of American Pathologists. &quot;SNOMED&quot; and &quot;SNOMED CT&quot; are registered trademarks of the IHTSDO.,
+          UK clinical extension,
+          UK drug extension,
+          SNOMED Clinical Terms,
+          SNOMED CT has been created by combining SNOMED RT and a computer-based nomenclature and classification known as Read Codes Version 3, which was created on behalf of the U.K. Department of Health.">
+    <meta name="author" content="Adrian Walker">
+
+    <title>$details["descriptions"][0]["concept_term"] ($details["properties"][0]["concept_id"]) - SNOMED CT Browser UK</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>
+          <table>
+            #foreach($concept in $browse)
+            <tr>
+              <td><a href="$baseUrl?id=$concept.key">$concept.title</a></td>
+            <tr>
+              #end
+          </table>
+        </td>
+        <td>
+          <h3>$details["descriptions"][0]["concept_term"]</h3>
+          <h4>Properties</h4>
+          <div>
+            <table>
+              #foreach($property in $details["properties"])
+              <tr>
+                <th>Concept ID</th>
+                <td>$property["concept_id"]</td>
+              </tr>
+              <tr>
+                <th>Module</th>
+                <td><a href="$baseUrl?id=$property["module_id"]">$property["module_term"]</a></td>
+              </tr>
+              <tr>
+                <th>Effective Time</th>
+                <td>$property["effective_time"]</td>
+              </tr>
+              <tr>
+                <th>Active</th>
+                <td>$property["active"]</td>
+              </tr>
+              #end
+            </table>
+          </div>
+          <h4>Descriptions</h4>
+          <div>
+            <table>
+              <tr>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Acceptability</th>
+              </tr>
+              #foreach($description in $details["descriptions"])
+              <tr>
+                <td>$description["type_term"]</td>
+                <td>$description["concept_term"]</td>
+                <td>$description["acceptability_term"]</td>
+              </tr>
+              #end
+            </table>
+          </div>
+          <h4>Relationships</h4>
+          <div>
+            <table>
+              <tr>
+                <th>Relationship</th>
+                <th>Concept ID</th>
+                <th>Description</th>
+              </tr>
+              #foreach($relationship in $details["relationships"])
+              <tr>
+                <td>$relationship["relationship_term"]</td>
+                <td><a href="$baseUrl?id=$relationship["concept_id"]">$relationship["concept_id"]</a></td>
+                <td><a href="$baseUrl?id=$relationship["concept_id"]">$relationship["concept_term"]</a></td>
+              </tr>
+              #end
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

@@ -104,8 +104,8 @@ angular
       });
     }])
   .controller('Controller', [
-    '$scope', '$log', 'ngUrlBind', 'Search', 'Refsets', 'Subsets', 'Mappings', 'Members', 'MemberOf', 'Details',
-    function ($scope, $log, ngUrlBind, Search, Refsets, Subsets, Mappings, Members, MemberOf, Details) {
+    '$scope', '$log', '$location', 'ngUrlBind', 'Search', 'Refsets', 'Subsets', 'Mappings', 'Members', 'MemberOf', 'Details',
+    function ($scope, $log, $location, ngUrlBind, Search, Refsets, Subsets, Mappings, Members, MemberOf, Details) {
 
       $scope.spinners = {
         details: true,
@@ -199,7 +199,7 @@ angular
 
         $scope.data.mappings.concepts = [];
         $scope.spinners.mappings = true;
-      
+
         Mappings.query(
           {
             conceptId: $scope.data.conceptId
@@ -210,7 +210,7 @@ angular
             $scope.data.mappings.concepts = result;
           });
       };
-      
+
       $scope.membersPage = function () {
 
         $scope.data.members.concepts = [];
@@ -356,7 +356,15 @@ angular
         $scope.rightTab = tab;
       }
 
-      function urlBind() {
+      function url() {
+
+        var idRegex = /id=(\d+)/g;
+        var url = $location.absUrl();
+        var match = idRegex.exec(url);
+        if (match) {
+          var id = match[1];
+          $scope.id = id;
+        }
 
         if (!$scope.id) {
           $scope.id = '';
@@ -394,7 +402,7 @@ angular
         $scope.data.subsets.concepts = Subsets.query({});
       }
 
-      urlBind();
+      url();
       refsets();
       subsets();
     }])

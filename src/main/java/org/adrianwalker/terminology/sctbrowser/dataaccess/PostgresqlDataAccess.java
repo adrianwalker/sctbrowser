@@ -410,7 +410,7 @@ public final class PostgresqlDataAccess implements DataAccess {
   }
 
   @Override
-  public List<Map<String, Object>> relationships(final BrowseParameters parameters) 
+  public List<Map<String, Object>> relationships(final BrowseParameters parameters)
           throws Exception {
 
     LOGGER.debug("{}", parameters);
