@@ -27,7 +27,8 @@ public final class CrawlerFilter implements Filter {
   private static final String USER_AGENT_HEADER = "User-Agent";
   private static final String[] CRAWLER_USER_AGENTS = {
     "bot",
-    "slurp"
+    "slurp",
+    "spider"
   };
   private static final String DETAILS_ATTR = "details";
   private static final String BROWSE_ATTR = "browse";
