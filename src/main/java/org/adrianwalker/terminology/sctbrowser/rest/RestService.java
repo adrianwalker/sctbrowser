@@ -7,12 +7,14 @@ import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.MAPPING
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.MEMBEROF_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.MEMBERS_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.REFSETS_PATH;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.REFERENCES_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.SEARCH_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.SUBSETS_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.VERSION_PATH;
 
 import org.adrianwalker.terminology.sctbrowser.parameters.BrowseParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.MembersParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.SearchParameters;
 
 import javax.ws.rs.BeanParam;
@@ -53,6 +55,11 @@ public interface RestService {
   @Path(value = REFSETS_PATH)
   @Produces(value = APPLICATION_JSON)
   Response refsets(@BeanParam BrowseParameters parameters) throws Exception;
+
+  @GET
+  @Path(value = REFERENCES_PATH)
+  @Produces(value = APPLICATION_JSON)
+  Response references(@BeanParam ReferencesParameters parameters) throws Exception;
 
   @GET
   @Path(value = SUBSETS_PATH)

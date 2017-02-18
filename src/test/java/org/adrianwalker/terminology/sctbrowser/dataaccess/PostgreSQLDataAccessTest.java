@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sql.DataSource;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.junit.Test;
 
 public final class PostgreSQLDataAccessTest {
@@ -86,6 +87,15 @@ public final class PostgreSQLDataAccessTest {
     List<Map<String, Object>> expectedResults = createExpectedResults();
     DataAccess dataAccess = new PostgresqlDataAccess(mockDataSource(expectedResults));
     List<Map<String, Object>> results = dataAccess.refsets(new BrowseParameters());
+    assertEquals(expectedResults, results);
+  }
+
+  @Test
+  public void testReferences() throws Exception {
+
+    List<Map<String, Object>> expectedResults = createExpectedResults();
+    DataAccess dataAccess = new PostgresqlDataAccess(mockDataSource(expectedResults));
+    List<Map<String, Object>> results = dataAccess.references(new ReferencesParameters());
     assertEquals(expectedResults, results);
   }
 

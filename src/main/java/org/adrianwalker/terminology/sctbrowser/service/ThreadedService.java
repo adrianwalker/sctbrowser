@@ -6,6 +6,8 @@ import static java.util.stream.Collectors.toList;
 import org.adrianwalker.terminology.sctbrowser.dataaccess.DataAccess;
 import org.adrianwalker.terminology.sctbrowser.parameters.BrowseParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.MembersParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.PagedParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.SearchParameters;
 
 import org.slf4j.Logger;
@@ -105,6 +107,31 @@ public final class ThreadedService implements Service {
   }
 
   @Override
+  public Map<String, Object> references(final ReferencesParameters parameters) throws Exception {
+
+    LOGGER.debug("{}", parameters);
+
+    checkPagedParameters(parameters);
+
+    Future<List<Map<String, Object>>> concepts
+            = EXECUTOR.submit(() -> dataAccess.references(parameters));
+
+    Future<Map<String, Object>> count = null;
+    if (parameters.getCount()) {
+      count = EXECUTOR.submit(() -> dataAccess.referencesCount(parameters));
+    }
+
+    Map<String, Object> references = new HashMap<>();
+    references.put(CONCEPTS, concepts.get());
+
+    if (null != count) {
+      references.putAll(count.get());
+    }
+
+    return references;
+  }
+
+  @Override
   public List<Map<String, Object>> subsets(final BrowseParameters parameters) throws Exception {
 
     LOGGER.debug("{}", parameters);
@@ -125,13 +152,7 @@ public final class ThreadedService implements Service {
 
     LOGGER.debug("{}", parameters);
 
-    if (parameters.getOffset() < MIN_OFFEST) {
-      parameters.setOffset(MIN_OFFEST);
-    }
-
-    if (parameters.getLimit() > MAX_LIMIT) {
-      parameters.setLimit(MAX_LIMIT);
-    }
+    checkPagedParameters(parameters);
 
     Future<List<Map<String, Object>>> concepts
             = EXECUTOR.submit(() -> dataAccess.members(parameters));
@@ -156,13 +177,7 @@ public final class ThreadedService implements Service {
 
     LOGGER.debug("{}", parameters);
 
-    if (parameters.getOffset() < MIN_OFFEST) {
-      parameters.setOffset(MIN_OFFEST);
-    }
-
-    if (parameters.getLimit() > MAX_LIMIT) {
-      parameters.setLimit(MAX_LIMIT);
-    }
+    checkPagedParameters(parameters);
 
     Future<List<Map<String, Object>>> concepts
             = EXECUTOR.submit(() -> dataAccess.memberOf(parameters));
@@ -187,13 +202,7 @@ public final class ThreadedService implements Service {
 
     LOGGER.debug("{}", parameters);
 
-    if (parameters.getOffset() < MIN_OFFEST) {
-      parameters.setOffset(MIN_OFFEST);
-    }
-
-    if (parameters.getLimit() > MAX_LIMIT) {
-      parameters.setLimit(MAX_LIMIT);
-    }
+    checkPagedParameters(parameters);
 
     Future<List<Map<String, Object>>> concepts
             = EXECUTOR.submit(() -> dataAccess.search(parameters));
@@ -233,5 +242,16 @@ public final class ThreadedService implements Service {
     details.put(PATHS, paths.get());
 
     return details;
+  }
+
+  private void checkPagedParameters(final PagedParameters parameters) {
+
+    if (parameters.getOffset() < MIN_OFFEST) {
+      parameters.setOffset(MIN_OFFEST);
+    }
+
+    if (parameters.getLimit() > MAX_LIMIT) {
+      parameters.setLimit(MAX_LIMIT);
+    }
   }
 }

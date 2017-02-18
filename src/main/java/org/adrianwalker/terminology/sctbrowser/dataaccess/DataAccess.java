@@ -2,6 +2,7 @@ package org.adrianwalker.terminology.sctbrowser.dataaccess;
 
 import org.adrianwalker.terminology.sctbrowser.parameters.BrowseParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.MembersParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.SearchParameters;
 
 import java.util.List;
@@ -36,6 +37,10 @@ public interface DataAccess {
   List<Map<String, Object>> descriptions(BrowseParameters parameters) throws Exception;
 
   List<Map<String, Object>> relationships(BrowseParameters parameters) throws Exception;
+  
+  List<Map<String, Object>> references(ReferencesParameters parameters) throws Exception;
+  
+  Map<String, Object> referencesCount(ReferencesParameters parameters) throws Exception;
 
   List<Map<String, Object>> properties(BrowseParameters parameters) throws Exception;
 }

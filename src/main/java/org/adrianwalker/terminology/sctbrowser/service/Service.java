@@ -2,6 +2,7 @@ package org.adrianwalker.terminology.sctbrowser.service;
 
 import org.adrianwalker.terminology.sctbrowser.parameters.BrowseParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.MembersParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.SearchParameters;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface Service {
   Map<String, Object> members(MembersParameters parameters) throws Exception;
 
   List<Map<String, Object>> refsets(BrowseParameters parameters) throws Exception;
+  
+  Map<String, Object> references(ReferencesParameters parameters) throws Exception;
 
   List<Map<String, Object>> subsets(BrowseParameters parameters) throws Exception;
 

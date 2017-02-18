@@ -2,6 +2,7 @@ package org.adrianwalker.terminology.sctbrowser.rest;
 
 import org.adrianwalker.terminology.sctbrowser.parameters.BrowseParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.MembersParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.SearchParameters;
 import org.adrianwalker.terminology.sctbrowser.service.Service;
 
@@ -28,6 +29,7 @@ public final class CachingRestService implements RestService {
   private static final Cache<BrowseParameters, List> BROWSE_CACHE;
   private static final Cache<SearchParameters, Map> SEARCH_CACHE;
   private static final Cache<BrowseParameters, List> REFSETS_CACHE;
+  private static final Cache<ReferencesParameters, Map> REFERENCES_CACHE;
   private static final Cache<BrowseParameters, List> SUBSETS_CACHE;
   private static final Cache<BrowseParameters, List> MAPPINGS_CACHE;
   private static final Cache<MembersParameters, Map> MEMBER_OF_CACHE;
@@ -38,6 +40,7 @@ public final class CachingRestService implements RestService {
     BROWSE_CACHE = createCache("BROWSE_CACHE", BrowseParameters.class, List.class);
     SEARCH_CACHE = createCache("SEARCH_CACHE", SearchParameters.class, Map.class);
     REFSETS_CACHE = createCache("REFSETS_CACHE", BrowseParameters.class, List.class);
+    REFERENCES_CACHE = createCache("REFERENCES_CACHE", ReferencesParameters.class, Map.class);
     SUBSETS_CACHE = createCache("SUBSETS_CACHE", BrowseParameters.class, List.class);
     MAPPINGS_CACHE = createCache("MAPPINGS_CACHE", BrowseParameters.class, List.class);
     MEMBER_OF_CACHE = createCache("MEMBERS_OF_CACHE", MembersParameters.class, Map.class);
@@ -75,6 +78,19 @@ public final class CachingRestService implements RestService {
 
     return Response
             .ok(doRefsets(parameters))
+            .cacheControl(CACHE_CONTROL)
+            .build();
+  }
+
+  @Override
+  public Response references(
+          @BeanParam
+          final ReferencesParameters parameters) throws Exception {
+
+    LOGGER.debug("{}", parameters);
+
+    return Response
+            .ok(doReferences(parameters))
             .cacheControl(CACHE_CONTROL)
             .build();
   }
@@ -221,6 +237,20 @@ public final class CachingRestService implements RestService {
     refsets = service.refsets(parameters);
 
     REFSETS_CACHE.put(parameters, refsets);
+
+    return refsets;
+  }
+
+  private Map<String, Object> doReferences(final ReferencesParameters parameters) throws Exception {
+
+    Map<String, Object> refsets = REFERENCES_CACHE.get(parameters);
+    if (null != refsets) {
+      return refsets;
+    }
+
+    refsets = service.references(parameters);
+
+    REFERENCES_CACHE.put(parameters, refsets);
 
     return refsets;
   }

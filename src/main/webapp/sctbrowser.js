@@ -103,16 +103,29 @@ angular
         query: {method: 'GET'}
       });
     }])
+  .factory('References', [
+    '$resource',
+    function ($resource) {
+      return $resource(API + '/' + VERSION + '/references', {
+        conceptId: 'conceptId',
+        offset: 'offset',
+        limit: 'limit',
+        count: 'count'
+      }, {
+        query: {method: 'GET'}
+      });
+    }])
   .controller('Controller', [
-    '$scope', '$log', '$location', 'ngUrlBind', 'Search', 'Refsets', 'Subsets', 'Mappings', 'Members', 'MemberOf', 'Details',
-    function ($scope, $log, $location, ngUrlBind, Search, Refsets, Subsets, Mappings, Members, MemberOf, Details) {
+    '$scope', '$log', '$location', 'ngUrlBind', 'Search', 'Refsets', 'Subsets', 'Mappings', 'Members', 'MemberOf', 'Details', 'References',
+    function ($scope, $log, $location, ngUrlBind, Search, Refsets, Subsets, Mappings, Members, MemberOf, Details, References) {
 
       $scope.spinners = {
         details: true,
         mappings: true,
         memberOf: true,
         members: true,
-        search: false
+        search: false,
+        references: true
       };
 
       $scope.data = {
@@ -143,6 +156,13 @@ angular
           maxSize: 5
         },
         memberOf: {
+          currentPage: 1,
+          pageSize: 10,
+          concepts: [],
+          count: 0,
+          maxSize: 5
+        },
+        references: {
           currentPage: 1,
           pageSize: 10,
           concepts: [],
@@ -249,6 +269,28 @@ angular
           });
       };
 
+      $scope.referencesPage = function () {
+
+        $scope.data.references.concepts = [];
+        $scope.spinners.references = true;
+
+        References.query(
+          {
+            conceptId: $scope.data.conceptId,
+            offset: ($scope.data.references.currentPage - 1) * $scope.data.references.pageSize,
+            limit: $scope.data.references.pageSize,
+            count: $scope.data.references.currentPage === 1
+          })
+          .$promise
+          .then(function (result) {
+            $scope.spinners.references = false;
+            $scope.data.references.concepts = result.concepts;
+            if (result.count) {
+              $scope.data.references.count = result.count;
+            }
+          });
+      };
+
       $scope.memberOfPage = function () {
 
         $scope.data.memberOf.concepts = [];
@@ -307,6 +349,10 @@ angular
         select(property.module_id);
       };
 
+      $scope.referenceSelect = function (reference) {
+        select(reference.concept_id);
+      };
+
       function selectInTree(paths, from, to) {
 
         var tree = $("#tree").fancytree("getTree");
@@ -345,6 +391,10 @@ angular
         $scope.membersPage();
 
         $scope.mappings();
+
+        $scope.data.references.concepts = [];
+        $scope.data.references.currentPage = 1;
+        $scope.referencesPage();
       }
 
       function selectTab(tab) {

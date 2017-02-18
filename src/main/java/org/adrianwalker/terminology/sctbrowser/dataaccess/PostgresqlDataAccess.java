@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.joining;
 
 import org.adrianwalker.terminology.sctbrowser.parameters.BrowseParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.MembersParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.SearchParameters;
 import org.adrianwalker.terminology.sctbrowser.resource.ResourceFile;
 
@@ -54,6 +55,10 @@ public final class PostgresqlDataAccess implements DataAccess {
           = ResourceFile.readAsString("/sql/postgresql/query/members_count.sql");
   private static final String RELATIONSHIPS
           = ResourceFile.readAsString("/sql/postgresql/query/relationships.sql");
+  private static final String REFERENCES
+          = ResourceFile.readAsString("/sql/postgresql/query/references.sql");
+  private static final String REFERENCES_COUNT
+          = ResourceFile.readAsString("/sql/postgresql/query/references_count.sql");
   private static final String PROPERTIES
           = ResourceFile.readAsString("/sql/postgresql/query/properties.sql");
   private static final String AND
@@ -430,6 +435,66 @@ public final class PostgresqlDataAccess implements DataAccess {
 
       try (ResultSet resultSet = relationships.executeQuery()) {
         results = resultList(resultSet);
+      }
+    }
+
+    LOGGER.debug("results = {}", results);
+
+    return results;
+  }
+
+  @Override
+  public List<Map<String, Object>> references(final ReferencesParameters parameters)
+          throws Exception {
+
+    LOGGER.debug("{}", parameters);
+
+    List<Map<String, Object>> results;
+    try (
+            Connection connection = dataSource.getConnection();
+            PreparedStatement relationships = connection.prepareStatement(REFERENCES)) {
+
+      relationships.setLong(1, parameters.getConceptId());
+      relationships.setLong(2, parameters.getDescriptionTypeId());
+      relationships.setLong(3, parameters.getDescriptionTypeId());
+      relationships.setLong(4, parameters.getLanguageRefsetAcceptabilityId());
+      relationships.setLong(5, parameters.getLanguageRefsetAcceptabilityId());
+      relationships.setInt(6, parameters.getOffset());
+      relationships.setInt(7, parameters.getLimit());
+
+      LOGGER.debug("sql = \n{}", REFERENCES);
+
+      try (ResultSet resultSet = relationships.executeQuery()) {
+        results = resultList(resultSet);
+      }
+    }
+
+    LOGGER.debug("results = {}", results);
+
+    return results;
+  }
+
+  @Override
+  public Map<String, Object> referencesCount(final ReferencesParameters parameters)
+          throws Exception {
+
+    LOGGER.debug("{}", parameters);
+
+    Map<String, Object> results;
+    try (
+            Connection connection = dataSource.getConnection();
+            PreparedStatement relationships = connection.prepareStatement(REFERENCES_COUNT)) {
+
+      relationships.setLong(1, parameters.getConceptId());
+      relationships.setLong(2, parameters.getDescriptionTypeId());
+      relationships.setLong(3, parameters.getDescriptionTypeId());
+      relationships.setLong(4, parameters.getLanguageRefsetAcceptabilityId());
+      relationships.setLong(5, parameters.getLanguageRefsetAcceptabilityId());
+
+      LOGGER.debug("sql = \n{}", REFERENCES_COUNT);
+
+      try (ResultSet resultSet = relationships.executeQuery()) {
+        results = resultList(resultSet).get(0);
       }
     }
 

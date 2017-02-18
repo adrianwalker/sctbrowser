@@ -10,6 +10,7 @@ public final class RestConstants {
   public static final String MEMBEROF_PATH = "memberof";
   public static final String MEMBERS_PATH = "members";
   public static final String REFSETS_PATH = "refsets";
+  public static final String REFERENCES_PATH = "references";
   public static final String SUBSETS_PATH = "subsets";
   public static final String SEARCH_PATH = "search";
 

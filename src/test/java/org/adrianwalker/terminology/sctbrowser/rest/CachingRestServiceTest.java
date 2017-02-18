@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import org.adrianwalker.terminology.sctbrowser.parameters.BrowseParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.MembersParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.SearchParameters;
 import org.adrianwalker.terminology.sctbrowser.service.Service;
 
@@ -82,6 +83,43 @@ public final class CachingRestServiceTest {
     Response cachedResponse = restService.refsets(parameters);
     List<Map<String, Object>> cachedEntity
             = (List<Map<String, Object>>) cachedResponse.getEntity();
+    assertEquals(expectedEntity, cachedEntity);
+
+    assertEquals(entity, cachedEntity);
+  }
+
+  @Test
+  public void testReferences() throws Exception {
+
+    List<Map<String, Object>> concepts = new ArrayList<>();
+    Map<String, Object> concept = new HashMap<>();
+    concept.put("relationship_term", "test");
+    concept.put("concept_id", "1");
+    concept.put("concept_term", "test");
+    concepts.add(concept);
+
+    Map<String, Object> count = new HashMap<>();
+    count.put("count", "1");
+
+    Map<String, Object> expectedEntity = new HashMap<>();
+    expectedEntity.put("concepts", concepts);
+    expectedEntity.putAll(count);
+
+    Service service = mock(Service.class);
+    when(service.references(any(ReferencesParameters.class))).thenReturn(expectedEntity);
+
+    RestService restService = new CachingRestService(service);
+
+    ReferencesParameters parameters = new ReferencesParameters();
+
+    Response response = restService.references(parameters);
+    Map<String, Object> entity
+            = (Map<String, Object>) response.getEntity();
+    assertEquals(expectedEntity, entity);
+
+    Response cachedResponse = restService.references(parameters);
+    Map<String, Object> cachedEntity
+            = (Map<String, Object>) cachedResponse.getEntity();
     assertEquals(expectedEntity, cachedEntity);
 
     assertEquals(entity, cachedEntity);
