@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Properties;
 
 public final class ResourceFile {
 
@@ -29,6 +30,25 @@ public final class ResourceFile {
       return reader
               .lines()
               .collect(joining(LINE_SEPERATOR));
+
+    } catch (final Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public static Properties readAsProperties(final String filename) {
+
+    LOGGER.debug("Reading resource '{}'", filename);
+
+    try (BufferedReader reader = new BufferedReader(
+            new InputStreamReader(
+                    ResourceFile.class.getResourceAsStream(filename),
+                    US_ASCII))) {
+
+      Properties properties = new Properties();
+      properties.load(reader);
+      
+      return properties;
 
     } catch (final Exception e) {
       throw new RuntimeException(e);

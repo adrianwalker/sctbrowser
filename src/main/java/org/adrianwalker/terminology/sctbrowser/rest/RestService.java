@@ -6,8 +6,8 @@ import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.DETAILS
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.MAPPINGS_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.MEMBEROF_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.MEMBERS_PATH;
-import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.REFSETS_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.REFERENCES_PATH;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.REFSETS_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.SEARCH_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.SUBSETS_PATH;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.VERSION_PATH;

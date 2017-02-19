@@ -18,11 +18,16 @@ import javax.cache.configuration.MutableConfiguration;
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Response;
+import org.adrianwalker.terminology.sctbrowser.resource.ResourceFile;
 
 public final class CachingRestService implements RestService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(CachingRestService.class);
-  private static final CacheManager CACHE_MANAGER = Caching.getCachingProvider().getCacheManager();
+  private static final String CACHE_CONFIGURATION = "/cache.ccf";
+  private static final CacheManager CACHE_MANAGER = Caching.getCachingProvider().getCacheManager(
+          null,
+          null,
+          ResourceFile.readAsProperties(CACHE_CONFIGURATION));
   private static final CacheControl CACHE_CONTROL = new CacheControl();
   private static final int CACHE_AGE = 60 * 60 * 24;
 

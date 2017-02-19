@@ -62,15 +62,16 @@ public final class DataDirectoryWatcher extends Observable implements Watcher, R
         break;
       }
 
-      key.pollEvents()
+      Path dataFile = key.pollEvents()
               .stream()
               .filter(event -> !(event.kind() == OVERFLOW))
+              .findFirst()
               .map(event -> (Path) event.context())
-              .forEach(dataFile -> {
-                LOGGER.info("processing file '{}'", dataFile);
-                setChanged();
-                notifyObservers(dataDirectory.resolve(dataFile));
-              });
+              .get();
+
+      LOGGER.info("processing file '{}'", dataFile);
+      setChanged();
+      notifyObservers(dataDirectory.resolve(dataFile));
 
       if (!key.reset()) {
         LOGGER.error("watch key could not be reset");
