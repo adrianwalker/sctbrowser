@@ -70,7 +70,7 @@
         <filtering>true</filtering>
         <includes>
           <include>logback.xml</include>
-          <include>cache.ccf</include>
+          <include>jcache.ccf</include>
           <include>sql/**/*.sql</include>
         </includes>
       </resource>

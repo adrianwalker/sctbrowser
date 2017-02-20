@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Properties;
+import java.net.URI;
 
 public final class ResourceFile {
 
@@ -36,20 +36,12 @@ public final class ResourceFile {
     }
   }
 
-  public static Properties readAsProperties(final String filename) {
+  public static URI asURI(final String filename) {
+    
+    LOGGER.debug("Creating URI for '{}'", filename);
 
-    LOGGER.debug("Reading resource '{}'", filename);
-
-    try (BufferedReader reader = new BufferedReader(
-            new InputStreamReader(
-                    ResourceFile.class.getResourceAsStream(filename),
-                    US_ASCII))) {
-
-      Properties properties = new Properties();
-      properties.load(reader);
-      
-      return properties;
-
+    try {
+      return ResourceFile.class.getResource(filename).toURI();
     } catch (final Exception e) {
       throw new RuntimeException(e);
     }
