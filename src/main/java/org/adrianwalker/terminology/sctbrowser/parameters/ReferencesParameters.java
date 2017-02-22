@@ -2,8 +2,112 @@ package org.adrianwalker.terminology.sctbrowser.parameters;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.ws.rs.QueryParam;
+import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_COUNT;
+import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_LIMIT;
+import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_OFFSET;
+import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.PREFERRED;
+import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.ROOT_CONCEPT_ID;
+import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.SYNONYM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.CONCEPT_ID_PARAM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.COUNT_PARAM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.DESCRIPTION_TYPE_ID_PARAM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.LANGUAGE_REFSET_ACCEPTABILITY_ID_PARAM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.LIMIT_PARAM;
+import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.OFFSET_PARAM;
 
-public final class ReferencesParameters extends BaseParameters implements Serializable {
+public final class ReferencesParameters implements Serializable {
+
+  @QueryParam(CONCEPT_ID_PARAM)
+  private Long conceptId;
+  @QueryParam(LANGUAGE_REFSET_ACCEPTABILITY_ID_PARAM)
+  private Long languageRefsetAcceptabilityId;
+  @QueryParam(DESCRIPTION_TYPE_ID_PARAM)
+  private Long descriptionTypeId;
+  @QueryParam(OFFSET_PARAM)
+  private Integer offset;
+  @QueryParam(LIMIT_PARAM)
+  private Integer limit;
+  @QueryParam(COUNT_PARAM)
+  private Boolean count;
+
+  public Long getConceptId() {
+
+    if (null == conceptId) {
+      conceptId = ROOT_CONCEPT_ID;
+    }
+
+    return conceptId;
+  }
+
+  public void setConceptId(final Long conceptId) {
+    this.conceptId = conceptId;
+  }
+
+  public Long getLanguageRefsetAcceptabilityId() {
+
+    if (null == languageRefsetAcceptabilityId) {
+      languageRefsetAcceptabilityId = PREFERRED;
+    }
+
+    return languageRefsetAcceptabilityId;
+  }
+
+  public void setLanguageRefsetAcceptabilityId(final Long languageRefsetAcceptabilityId) {
+    this.languageRefsetAcceptabilityId = languageRefsetAcceptabilityId;
+  }
+
+  public Long getDescriptionTypeId() {
+
+    if (null == descriptionTypeId) {
+      descriptionTypeId = SYNONYM;
+    }
+
+    return descriptionTypeId;
+  }
+
+  public void setDescriptionTypeId(final Long descriptionTypeId) {
+    this.descriptionTypeId = descriptionTypeId;
+  }
+
+  public final Integer getOffset() {
+
+    if (null == offset) {
+      offset = DEFAULT_OFFSET;
+    }
+
+    return offset;
+  }
+
+  public final void setOffset(final Integer offset) {
+    this.offset = offset;
+  }
+
+  public final Integer getLimit() {
+
+    if (null == limit) {
+      limit = DEFAULT_LIMIT;
+    }
+
+    return limit;
+  }
+
+  public final void setLimit(final Integer limit) {
+    this.limit = limit;
+  }
+
+  public final Boolean getCount() {
+
+    if (null == count) {
+      count = DEFAULT_COUNT;
+    }
+
+    return count;
+  }
+
+  public final void setCount(final Boolean count) {
+    this.count = count;
+  }
 
   @Override
   public String toString() {
