@@ -1,0 +1,1 @@
+ALTER TABLE extended_map_refset ADD COLUMN search_text TSVECTOR;

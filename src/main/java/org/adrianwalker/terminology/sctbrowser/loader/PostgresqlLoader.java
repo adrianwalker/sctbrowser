@@ -77,11 +77,15 @@ public final class PostgresqlLoader implements Loader {
           = "copy_subset_to_refset_mapping.sql";
 
   private static final String[] ALTER_TABLE_FILES = {
-    "alter_description.sql"
+    "alter_description.sql",
+    "alter_extended_map_refset.sql",
+    "alter_simple_map_refset.sql"
   };
 
   private static final String[] UPDATE_TABLE_FILES = {
-    "update_description.sql"
+    "update_description.sql",
+    "update_extended_map_refset.sql",
+    "update_simple_map_refset.sql"
   };
 
   private static final String[] CREATE_INDEX_FILES = {
@@ -94,11 +98,13 @@ public final class PostgresqlLoader implements Loader {
     "create_description_active_concept_id_type_id_id_term.sql",
     "create_description_search_text.sql",
     "create_extended_map_refset_active_referenced_component_id_map_target_refset_id.sql",
+    "create_extended_map_refset_search_text.sql",
     "create_language_refset_active_referenced_component_id_acceptability_id.sql",
     "create_language_refset_active_referenced_component_id.sql",
     "create_relationship_active_destination_id_source_id_type_id.sql",
     "create_relationship_active_source_id_destination_id_type_id.sql",
-    "create_simple_map_refset_active_referenced_component_id_map_target_refset_id.sql"
+    "create_simple_map_refset_active_referenced_component_id_map_target_refset_id.sql",
+    "create_simple_map_refset_search_text.sql"
   };
 
   private static final String[] VACUUM_TABLE_FILES = {

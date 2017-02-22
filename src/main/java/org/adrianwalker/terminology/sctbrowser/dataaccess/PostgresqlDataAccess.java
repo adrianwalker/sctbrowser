@@ -165,9 +165,13 @@ public final class PostgresqlDataAccess implements DataAccess {
             Connection connection = dataSource.getConnection();
             PreparedStatement search = connection.prepareStatement(SEARCH)) {
 
-      search.setString(1, searchQuery(parameters.getTerms()));
-      search.setInt(2, parameters.getOffset());
-      search.setInt(3, parameters.getLimit());
+      String searchQuery = searchQuery(parameters.getTerms());
+
+      search.setString(1, searchQuery);
+      search.setString(2, searchQuery);
+      search.setString(3, searchQuery);
+      search.setInt(4, parameters.getOffset());
+      search.setInt(5, parameters.getLimit());
 
       LOGGER.debug("sql = \n{}", SEARCH);
 
@@ -191,7 +195,11 @@ public final class PostgresqlDataAccess implements DataAccess {
             Connection connection = dataSource.getConnection();
             PreparedStatement searchCount = connection.prepareStatement(SEARCH_COUNT)) {
 
-      searchCount.setString(1, searchQuery(parameters.getTerms()));
+      String searchQuery = searchQuery(parameters.getTerms());
+
+      searchCount.setString(1, searchQuery);
+      searchCount.setString(2, searchQuery);
+      searchCount.setString(3, searchQuery);
 
       LOGGER.debug("sql = \n{}", SEARCH_COUNT);
 

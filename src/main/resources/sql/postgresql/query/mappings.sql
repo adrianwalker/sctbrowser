@@ -15,7 +15,7 @@ INNER JOIN (
 INNER JOIN description d ON d.concept_id = mr.refset_id
 INNER JOIN language_refset lr ON lr.referenced_component_id = d.id
 WHERE c.active = ANY(ARRAY[true, false])
-and c.id = ?
+AND c.id = ?
 AND d.active = true
 AND d.type_id = ?
 AND lr.active = true

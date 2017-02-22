@@ -1,0 +1,1 @@
+ALTER TABLE simple_map_refset ADD COLUMN search_text TSVECTOR;
