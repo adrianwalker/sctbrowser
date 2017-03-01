@@ -1,8 +1,5 @@
 package org.adrianwalker.terminology.sctbrowser.parameters;
 
-import java.io.Serializable;
-import java.util.Objects;
-import javax.ws.rs.QueryParam;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_COUNT;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_LIMIT;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_OFFSET;
@@ -15,6 +12,10 @@ import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.DESCRIP
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.LANGUAGE_REFSET_ACCEPTABILITY_ID_PARAM;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.LIMIT_PARAM;
 import static org.adrianwalker.terminology.sctbrowser.rest.RestConstants.OFFSET_PARAM;
+
+import java.io.Serializable;
+import java.util.Objects;
+import javax.ws.rs.QueryParam;
 
 public final class ReferencesParameters implements Serializable {
 
@@ -70,7 +71,7 @@ public final class ReferencesParameters implements Serializable {
     this.descriptionTypeId = descriptionTypeId;
   }
 
-  public final Integer getOffset() {
+  public Integer getOffset() {
 
     if (null == offset) {
       offset = DEFAULT_OFFSET;
@@ -79,11 +80,11 @@ public final class ReferencesParameters implements Serializable {
     return offset;
   }
 
-  public final void setOffset(final Integer offset) {
+  public void setOffset(final Integer offset) {
     this.offset = offset;
   }
 
-  public final Integer getLimit() {
+  public Integer getLimit() {
 
     if (null == limit) {
       limit = DEFAULT_LIMIT;
@@ -92,11 +93,11 @@ public final class ReferencesParameters implements Serializable {
     return limit;
   }
 
-  public final void setLimit(final Integer limit) {
+  public void setLimit(final Integer limit) {
     this.limit = limit;
   }
 
-  public final Boolean getCount() {
+  public Boolean getCount() {
 
     if (null == count) {
       count = DEFAULT_COUNT;
@@ -105,7 +106,7 @@ public final class ReferencesParameters implements Serializable {
     return count;
   }
 
-  public final void setCount(final Boolean count) {
+  public void setCount(final Boolean count) {
     this.count = count;
   }
 
