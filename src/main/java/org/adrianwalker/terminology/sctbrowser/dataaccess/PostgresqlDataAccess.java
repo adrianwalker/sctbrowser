@@ -67,6 +67,7 @@ public final class PostgresqlDataAccess implements DataAccess {
           = ":*";
   private static final Pattern WS
           = Pattern.compile("\\s+");
+  private static final int FETCH_SIZE = 100;
 
   private final DataSource dataSource;
 
@@ -82,8 +83,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement concept = connection.prepareStatement(CONCEPT)) {
+            Connection connection = getConnection();
+            PreparedStatement concept = prepareStatement(connection, CONCEPT)) {
 
       concept.setLong(1, parameters.getConceptId());
       concept.setLong(2, parameters.getDescriptionTypeId());
@@ -108,8 +109,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement children = connection.prepareStatement(CHILDREN)) {
+            Connection connection = getConnection();
+            PreparedStatement children = prepareStatement(connection, CHILDREN)) {
 
       children.setLong(1, parameters.getRelationshipTypeId());
       children.setLong(2, parameters.getDescriptionTypeId());
@@ -136,8 +137,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement paths = connection.prepareStatement(PATHS)) {
+            Connection connection = getConnection();
+            PreparedStatement paths = prepareStatement(connection, PATHS)) {
 
       paths.setLong(1, parameters.getConceptId());
       paths.setLong(2, parameters.getRelationshipTypeId());
@@ -162,8 +163,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement search = connection.prepareStatement(SEARCH)) {
+            Connection connection = getConnection();
+            PreparedStatement search = prepareStatement(connection, SEARCH)) {
 
       String searchQuery = searchQuery(parameters.getTerms());
 
@@ -192,8 +193,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     Map<String, Object> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement searchCount = connection.prepareStatement(SEARCH_COUNT)) {
+            Connection connection = getConnection();
+            PreparedStatement searchCount = prepareStatement(connection, SEARCH_COUNT)) {
 
       String searchQuery = searchQuery(parameters.getTerms());
 
@@ -220,8 +221,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement refsets = connection.prepareStatement(REFSETS)) {
+            Connection connection = getConnection();
+            PreparedStatement refsets = prepareStatement(connection, REFSETS)) {
 
       refsets.setLong(1, parameters.getDescriptionTypeId());
       refsets.setLong(2, parameters.getLanguageRefsetAcceptabilityId());
@@ -245,8 +246,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement refsets = connection.prepareStatement(SUBSETS)) {
+            Connection connection = getConnection();
+            PreparedStatement refsets = prepareStatement(connection, SUBSETS)) {
 
       LOGGER.debug("sql = \n{}", SUBSETS);
 
@@ -267,8 +268,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement mappings = connection.prepareStatement(MAPPINGS)) {
+            Connection connection = getConnection();
+            PreparedStatement mappings = prepareStatement(connection, MAPPINGS)) {
 
       mappings.setLong(1, parameters.getConceptId());
       mappings.setLong(2, parameters.getDescriptionTypeId());
@@ -293,8 +294,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement memberOf = connection.prepareStatement(MEMBER_OF)) {
+            Connection connection = getConnection();
+            PreparedStatement memberOf = prepareStatement(connection, MEMBER_OF)) {
 
       memberOf.setLong(1, parameters.getConceptId());
       memberOf.setLong(2, parameters.getDescriptionTypeId());
@@ -321,8 +322,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     Map<String, Object> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement memberOfCount = connection.prepareStatement(MEMBER_OF_COUNT)) {
+            Connection connection = getConnection();
+            PreparedStatement memberOfCount = prepareStatement(connection, MEMBER_OF_COUNT)) {
 
       memberOfCount.setLong(1, parameters.getConceptId());
       memberOfCount.setLong(2, parameters.getDescriptionTypeId());
@@ -347,8 +348,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement members = connection.prepareStatement(MEMBERS)) {
+            Connection connection = getConnection();
+            PreparedStatement members = prepareStatement(connection, MEMBERS)) {
 
       members.setLong(1, parameters.getConceptId());
       members.setLong(2, parameters.getDescriptionTypeId());
@@ -375,8 +376,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     Map<String, Object> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement membersCount = connection.prepareStatement(MEMBERS_COUNT)) {
+            Connection connection = getConnection();
+            PreparedStatement membersCount = prepareStatement(connection, MEMBERS_COUNT)) {
 
       membersCount.setLong(1, parameters.getConceptId());
       membersCount.setLong(2, parameters.getDescriptionTypeId());
@@ -402,8 +403,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement descriptions = connection.prepareStatement(DESCRIPTIONS)) {
+            Connection connection = getConnection();
+            PreparedStatement descriptions = prepareStatement(connection, DESCRIPTIONS)) {
 
       descriptions.setLong(1, parameters.getConceptId());
       descriptions.setLong(2, parameters.getDescriptionTypeId());
@@ -430,8 +431,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement relationships = connection.prepareStatement(RELATIONSHIPS)) {
+            Connection connection = getConnection();
+            PreparedStatement relationships = prepareStatement(connection, RELATIONSHIPS)) {
 
       relationships.setLong(1, parameters.getConceptId());
       relationships.setLong(2, parameters.getDescriptionTypeId());
@@ -459,8 +460,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement relationships = connection.prepareStatement(REFERENCES)) {
+            Connection connection = getConnection();
+            PreparedStatement relationships = prepareStatement(connection, REFERENCES)) {
 
       relationships.setLong(1, parameters.getConceptId());
       relationships.setLong(2, parameters.getDescriptionTypeId());
@@ -490,8 +491,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     Map<String, Object> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement relationships = connection.prepareStatement(REFERENCES_COUNT)) {
+            Connection connection = getConnection();
+            PreparedStatement relationships = prepareStatement(connection, REFERENCES_COUNT)) {
 
       relationships.setLong(1, parameters.getConceptId());
       relationships.setLong(2, parameters.getDescriptionTypeId());
@@ -518,8 +519,8 @@ public final class PostgresqlDataAccess implements DataAccess {
 
     List<Map<String, Object>> results;
     try (
-            Connection connection = dataSource.getConnection();
-            PreparedStatement properties = connection.prepareStatement(PROPERTIES)) {
+            Connection connection = getConnection();
+            PreparedStatement properties = prepareStatement(connection, PROPERTIES)) {
 
       properties.setLong(1, parameters.getConceptId());
       properties.setLong(2, parameters.getDescriptionTypeId());
@@ -535,6 +536,22 @@ public final class PostgresqlDataAccess implements DataAccess {
     LOGGER.debug("results = {}", results);
 
     return results;
+  }
+
+  private Connection getConnection() throws SQLException {
+
+    Connection connection = dataSource.getConnection();
+    connection.setAutoCommit(false);
+
+    return connection;
+  }
+
+  private PreparedStatement prepareStatement(final Connection connection, final String sql) throws SQLException {
+
+    PreparedStatement statement = connection.prepareStatement(sql);
+    statement.setFetchSize(FETCH_SIZE);
+
+    return statement;
   }
 
   private static String searchQuery(final String terms) {
