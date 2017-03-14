@@ -3,7 +3,9 @@ package org.adrianwalker.terminology.sctbrowser.parameters;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_COUNT;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_LIMIT;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.DEFAULT_OFFSET;
+import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.PREFERRED;
 import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.ROOT_CONCEPT_ID;
+import static org.adrianwalker.terminology.sctbrowser.parameters.ParameterConstants.SYNONYM;
 
 import static org.junit.Assert.*;
 
@@ -24,6 +26,36 @@ public final class ReferencesParametersTest {
     parameters.setConceptId(expectedConceptId);
     conceptId = parameters.getConceptId();
     assertEquals(expectedConceptId, conceptId);
+  }
+
+  @Test
+  public void testLanguageRefsetAcceptabilityId() {
+
+    ReferencesParameters parameters = new ReferencesParameters();
+
+    Long expectedLanguageRefsetAcceptabilityId = PREFERRED;
+    Long languageRefsetAcceptabilityId = parameters.getLanguageRefsetAcceptabilityId();
+    assertEquals(expectedLanguageRefsetAcceptabilityId, languageRefsetAcceptabilityId);
+
+    expectedLanguageRefsetAcceptabilityId = 1L;
+    parameters.setLanguageRefsetAcceptabilityId(expectedLanguageRefsetAcceptabilityId);
+    languageRefsetAcceptabilityId = parameters.getLanguageRefsetAcceptabilityId();
+    assertEquals(expectedLanguageRefsetAcceptabilityId, languageRefsetAcceptabilityId);
+  }
+
+  @Test
+  public void testDescriptionTypeId() {
+
+    ReferencesParameters parameters = new ReferencesParameters();
+
+    Long expectedDescriptionTypeId = SYNONYM;
+    Long descriptionTypeId = parameters.getDescriptionTypeId();
+    assertEquals(expectedDescriptionTypeId, descriptionTypeId);
+
+    expectedDescriptionTypeId = 1L;
+    parameters.setDescriptionTypeId(expectedDescriptionTypeId);
+    descriptionTypeId = parameters.getDescriptionTypeId();
+    assertEquals(expectedDescriptionTypeId, descriptionTypeId);
   }
 
   @Test
@@ -110,6 +142,14 @@ public final class ReferencesParametersTest {
     parameters2 = new ReferencesParameters();
     parameters2.setConceptId(1L);
     assertFalse(parameters1.equals(parameters2));
+    
+    parameters2 = new ReferencesParameters();
+    parameters2.setLanguageRefsetAcceptabilityId(1L);
+    assertFalse(parameters1.equals(parameters2));
+
+    parameters2 = new ReferencesParameters();
+    parameters2.setDescriptionTypeId(1L);
+    assertFalse(parameters1.equals(parameters2));        
 
     parameters2 = new ReferencesParameters();
     parameters2.setOffset(1);

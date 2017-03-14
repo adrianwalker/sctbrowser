@@ -32,10 +32,7 @@ public final class CachingRestServiceTest {
     concept.put("folder", true);
     concepts.add(concept);
 
-    List<Map<String, Object>> expectedEntity = new ArrayList<>();
-    Map<String, Object> expectedResult = new HashMap<>(concept);
-    expectedResult.put("lazy", true);
-    expectedEntity.add(expectedResult);
+    List<Map<String, Object>> expectedEntity = new ArrayList<>(concepts);
 
     Service service = mock(Service.class);
     when(service.browse(any(BrowseParameters.class))).thenReturn(expectedEntity);

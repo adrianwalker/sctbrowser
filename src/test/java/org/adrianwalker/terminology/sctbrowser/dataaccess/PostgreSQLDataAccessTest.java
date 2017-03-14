@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import org.adrianwalker.terminology.sctbrowser.parameters.BrowseParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.MembersParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.SearchParameters;
 
 import java.sql.Connection;
@@ -21,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.sql.DataSource;
-import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.junit.Test;
 
 public final class PostgreSQLDataAccessTest {
@@ -169,6 +169,15 @@ public final class PostgreSQLDataAccessTest {
     DataAccess dataAccess = new PostgresqlDataAccess(mockDataSource(expectedResults));
     List<Map<String, Object>> results = dataAccess.relationships(new BrowseParameters());
     assertEquals(expectedResults, results);
+  }
+
+  @Test
+  public void testRelationshipsCount() throws Exception {
+
+    List<Map<String, Object>> expectedResults = createExpectedResults();
+    DataAccess dataAccess = new PostgresqlDataAccess(mockDataSource(expectedResults));
+    Map<String, Object> result = dataAccess.referencesCount(new ReferencesParameters());
+    assertEquals(expectedResults.get(0), result);
   }
 
   @Test

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import org.adrianwalker.terminology.sctbrowser.dataaccess.DataAccess;
 import org.adrianwalker.terminology.sctbrowser.parameters.BrowseParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.MembersParameters;
+import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 import org.adrianwalker.terminology.sctbrowser.parameters.SearchParameters;
 
 import org.junit.Test;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.adrianwalker.terminology.sctbrowser.parameters.ReferencesParameters;
 
 public final class ThreadedServiceTest {
 
@@ -143,16 +143,16 @@ public final class ThreadedServiceTest {
   @Test
   public void testReferences() throws Exception {
 
-    /*
-        MembersParameters parameters = new MembersParameters();
+    ReferencesParameters parameters = new ReferencesParameters();
     parameters.setCount(true);
     parameters.setOffset(-1);
     parameters.setLimit(MAX_VALUE);
 
     List<Map<String, Object>> concepts = new ArrayList<>();
     Map<String, Object> concept = new HashMap<>();
-    concept.put("id", "1");
-    concept.put("term", "test");
+    concept.put("relationship_term", "test");
+    concept.put("concept_id", "1");
+    concept.put("concept_term", "test");
     concepts.add(concept);
 
     Map<String, Object> count = new HashMap<>();
@@ -161,24 +161,7 @@ public final class ThreadedServiceTest {
     Map<String, Object> expectedResults = new HashMap<>();
     expectedResults.put("concepts", concepts);
     expectedResults.putAll(count);
-    */
-    
-    ReferencesParameters parameters = new ReferencesParameters();
 
-    List<Map<String, Object>> concepts = new ArrayList<>();
-    Map<String, Object> concept = new HashMap<>();
-    concept.put("relationship_term", "test");
-    concept.put("concept_id", "1");
-    concept.put("concept_term", "test");
-    concepts.add(concept);    
-    
-    Map<String, Object> count = new HashMap<>();
-    count.put("count", "1");
-
-    Map<String, Object> expectedResults = new HashMap<>();
-    expectedResults.put("concepts", concepts);
-    expectedResults.putAll(count);
-    
     DataAccess dataAccess = mock(DataAccess.class);
     when(dataAccess.references(parameters)).thenReturn(concepts);
     when(dataAccess.referencesCount(parameters)).thenReturn(count);
