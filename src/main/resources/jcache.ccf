@@ -1,11 +1,10 @@
 # DEFAULT CACHE REGION
 jcs.default=DC
 jcs.default.cacheattributes=org.apache.commons.jcs.engine.CompositeCacheAttributes
-jcs.default.cacheattributes.MaxObjects=10000
+jcs.default.cacheattributes.MaxObjects=1000
 jcs.default.cacheattributes.MemoryCacheName=org.apache.commons.jcs.engine.memory.lru.LRUMemoryCache
-jcs.default.cacheattributes.UseMemoryShrinker=true
+jcs.default.cacheattributes.UseMemoryShrinker=false
 jcs.default.cacheattributes.MaxMemoryIdleTimeSeconds=86400
-jcs.default.cacheattributes.ShrinkerIntervalSeconds=3600
 jcs.default.elementattributes=org.apache.commons.jcs.engine.ElementAttributes
 jcs.default.elementattributes.IsEternal=false
 jcs.default.elementattributes.MaxLife=86400
@@ -15,4 +14,4 @@ jcs.default.elementattributes.IdleTime=86400
 jcs.auxiliary.DC=org.apache.commons.jcs.auxiliary.disk.indexed.IndexedDiskCacheFactory
 jcs.auxiliary.DC.attributes=org.apache.commons.jcs.auxiliary.disk.indexed.IndexedDiskCacheAttributes
 jcs.auxiliary.DC.attributes.DiskPath=${cache.directory}
-jcs.auxiliary.DC.attributes.maxKeySize=100000
+jcs.auxiliary.DC.attributes.maxKeySize=10000
