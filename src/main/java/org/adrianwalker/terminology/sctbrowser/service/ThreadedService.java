@@ -17,14 +17,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public final class ThreadedService implements Service {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ThreadedService.class);
-  private static final ExecutorService EXECUTOR = Executors.newWorkStealingPool();
+  private static final int AVAILABLE_PROCESSORS = Runtime.getRuntime().availableProcessors();
+  private static final int MIN_THREADS = 0;
+  private static final int MAX_THREADS = AVAILABLE_PROCESSORS + 1;
+  private static final ExecutorService EXECUTOR
+          = new ThreadPoolExecutor(
+                  MIN_THREADS,
+                  MAX_THREADS,
+                  1,
+                  TimeUnit.MINUTES,
+                  new LinkedBlockingQueue<>());
 
   private static final String DESCRIPTIONS = "descriptions";
   private static final String PROPERTIES = "properties";
