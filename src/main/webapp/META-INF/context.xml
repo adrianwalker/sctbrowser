@@ -10,6 +10,6 @@
     username="${sql.user}" 
     password="${sql.password}"
     initialSize="5"
-    maxActive="200"
-    maxTotal="200"/>
+    maxActive="20"
+    maxTotal="20"/>
 </Context>
