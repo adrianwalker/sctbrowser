@@ -117,7 +117,7 @@ sctbrowser is a small, simple and fast, Snomed CT Browser for viewing internatio
     
     to: 
         
-        %TOMCAT_HOME%/webapps/sctbrowser.war
+        $TOMCAT_HOME/webapps/sctbrowser.war
 
 11. Create load file:
 
